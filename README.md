@@ -1,18 +1,19 @@
-# Bitcoin TDCCM Reproduction
+# Applying Time Delay Convergent Cross Mapping to Bitcoin Time Series
 
 ![Overview of convergent cross mapping](figures/overview_ccm.png)
 
-This repository contains the cleaned reproduction code and data for:
+This repository contains the cleaned code and data for:
 
 > Isufaj, A., De Castro Martins, C., Cavazza, M., & Prendinger, H. (2025). Applying time delay convergent cross mapping to Bitcoin time series. *Expert Systems with Applications*, 277, 127125. https://doi.org/10.1016/j.eswa.2025.127125
 
-The goal is paper-parity reproduction for the Bitcoin, S&P 500, and gold time-delay convergent cross mapping analysis. The repo intentionally depends on the upstream PyEDM v2.1.1 source commit instead of vendoring the original PyEDM source tree.
+The goal is paper-parity reruns for the Bitcoin, S&P 500, and gold time-delay convergent cross mapping analysis. The repo intentionally depends on the upstream PyEDM v2.1.1 source commit instead of vendoring the original PyEDM source tree.
 
 ## Repository Layout
 
-- `data/raw/new_all_data2024.csv`: raw daily BTC, SPX, and gold prices.
-- `data/processed/`: normalized log returns used by the TDCCM analysis.
-- `data/reference/`: small paper-parity TDCCM result CSVs used to validate figure generation and slow parity reruns.
+- `data/raw/bitcoin_sp500_gold_daily_prices_2017_2024.csv`: raw daily BTC, S&P 500, and gold prices.
+- `data/processed/bitcoin_sp500_gold_normalized_log_returns_by_date.csv`: normalized log returns with calendar dates.
+- `data/processed/bitcoin_sp500_gold_normalized_log_returns_pyedm.csv`: normalized log returns with integer time labels for PyEDM.
+- `data/reference/`: directional TDCCM `rho` by window and `Tp` CSVs used to validate figure generation and slow parity reruns.
 - `figures/overview_ccm.png`: README overview image.
 - `figures/btc_spx_rho_per_window.pdf` and `figures/btc_gold_rho_per_window.pdf`: retained paper-parity final figures.
 - `src/bitcoin_tdccm/`: preprocessing, TDCCM, surrogate, and plotting code.
@@ -21,13 +22,23 @@ The goal is paper-parity reproduction for the Bitcoin, S&P 500, and gold time-de
 
 ## Setup
 
+Use the Conda environment named `tdccm`:
+
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e ".[dev]"
+conda env create -f environment.yml
+conda activate tdccm
+python -m pip install -e .
 ```
 
-## Reproduction Commands
+If the environment already exists:
+
+```bash
+conda activate tdccm
+python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+
+## Running The Analysis
 
 Regenerate processed data from raw prices:
 
@@ -76,8 +87,8 @@ The paper text describes a 20-point step, but the existing result artifacts cont
 
 The final rho-per-window figures use manual window-removal lists from the original figure notebook. Those lists are centralized in `bitcoin_tdccm.config.PAPER_FIGURE_FILTERS` so they are explicit and auditable.
 
-PyPI does not currently publish `pyEDM==2.1.1`; the available releases jump from `2.1.0` to `2.2.0`. For paper parity, `pyproject.toml` pins PyEDM to the upstream Git commit `bc7b850`, which is the local clone’s v2.1.1 commit.
+PyPI does not currently publish PyEDM v2.1.1; the available releases jump from v2.1.0 to v2.2.0. For paper parity, `pyproject.toml`, `requirements.txt`, and `environment.yml` pin PyEDM to the upstream Git commit `bc7b850`, which is the local clone’s v2.1.1 commit.
 
 ## GitHub Publishing Note
 
-This branch is an orphan clean root intended for a private repository such as `bitcoin-tdccm-reproduction`. The old PyEDM checkout state was preserved locally as `safety/pre-refactor-20260509` and `safety-pre-refactor-20260509`.
+This branch is an orphan clean root intended for a private repository. The old PyEDM checkout state was preserved locally as `safety/pre-refactor-20260509` and `safety-pre-refactor-20260509`.

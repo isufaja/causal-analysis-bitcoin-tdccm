@@ -1,4 +1,4 @@
-"""Command-line entrypoints for reproduction tasks."""
+"""Command-line entrypoints for the Bitcoin TDCCM analysis."""
 
 from __future__ import annotations
 
@@ -19,12 +19,12 @@ def preprocess_main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--dated-output",
         type=Path,
-        default=Path("data/processed/DateTime_normalized_log_returns.csv"),
+        default=Path("data/processed/bitcoin_sp500_gold_normalized_log_returns_by_date.csv"),
     )
     parser.add_argument(
         "--pyedm-output",
         type=Path,
-        default=Path("data/processed/normalized_log_returns.csv"),
+        default=Path("data/processed/bitcoin_sp500_gold_normalized_log_returns_pyedm.csv"),
     )
     args = parser.parse_args(argv)
 

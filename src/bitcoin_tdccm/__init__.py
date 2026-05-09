@@ -1,4 +1,4 @@
-"""Bitcoin TDCCM reproduction utilities."""
+"""Bitcoin TDCCM utilities."""
 
 from .config import DEFAULT_CONFIG, PAPER_FIGURE_FILTERS, PAIRS, PairConfig, TDCCMConfig
 from .preprocessing import build_normalized_returns, write_processed_data

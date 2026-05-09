@@ -20,7 +20,7 @@ def require_pyedm() -> Any:
     except ModuleNotFoundError as exc:
         raise ModuleNotFoundError(
             "pyEDM is required for TDCCM runs. Install with `python -m pip install -e .` "
-            "or `python -m pip install pyEDM==2.1.1`."
+            "or create the Conda environment with `conda env create -f environment.yml`."
         ) from exc
     return EDM
 
@@ -50,7 +50,7 @@ def direction_key(source: str, target: str) -> str:
 
 
 def reference_filename(source: str, target: str) -> str:
-    return f"norm_heatmap_data_{source}_to_{target}.csv"
+    return f"tdccm_{source.lower()}_to_{target.lower()}_rho_by_window_tp.csv"
 
 
 def get_best_e_tau(

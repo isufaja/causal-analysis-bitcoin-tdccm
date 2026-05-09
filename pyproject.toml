@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bitcoin-tdccm-reproduction"
+name = "bitcoin-tdccm"
 version = "0.1.0"
-description = "Reproduction code for time-delay convergent cross mapping on Bitcoin, S&P 500, and gold time series."
+description = "Time-delay convergent cross mapping on Bitcoin, S&P 500, and gold time series."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [

@@ -1,4 +1,4 @@
-"""Data preprocessing for the Bitcoin TDCCM reproduction."""
+"""Data preprocessing for the Bitcoin TDCCM analysis."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def build_normalized_returns(
     This mirrors the original notebook method: each asset is cleaned, converted
     to log returns, z-score normalized independently, and then merged by date.
     The PyEDM-compatible output uses integer time labels matching the original
-    `normalized_log_returns.csv` artifact.
+    PyEDM-compatible normalized-return artifact.
     """
 
     asset_frames: list[pd.DataFrame] = []

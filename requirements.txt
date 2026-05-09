@@ -1,0 +1,6 @@
+pyEDM @ git+https://github.com/SugiharaLab/pyEDM.git@bc7b850
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.6
+seaborn>=0.12
+pytest>=7.4

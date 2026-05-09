@@ -5,7 +5,7 @@
 This repository does not vendor the original PyEDM source tree. It depends on
 the upstream PyEDM commit `bc7b850` for empirical dynamic modeling routines.
 That commit is labeled v2.1.1 in the original local clone; PyPI does not
-publish a `pyEDM==2.1.1` wheel/sdist.
+publish a v2.1.1 wheel/sdist.
 
 - Project: https://github.com/SugiharaLab/pyEDM
 - Package: https://pypi.org/project/pyEDM/

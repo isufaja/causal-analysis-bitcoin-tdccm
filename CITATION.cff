@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code or data, please cite the associated paper."
-title: "Bitcoin TDCCM Reproduction"
+title: "Applying time delay convergent cross mapping to Bitcoin time series"
 type: software
 authors:
   - given-names: Albi

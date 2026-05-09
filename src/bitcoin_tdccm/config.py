@@ -8,9 +8,13 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
-RAW_DATA = DATA_DIR / "raw" / "new_all_data2024.csv"
-PROCESSED_DATED_DATA = DATA_DIR / "processed" / "DateTime_normalized_log_returns.csv"
-PROCESSED_PYEDM_DATA = DATA_DIR / "processed" / "normalized_log_returns.csv"
+RAW_DATA = DATA_DIR / "raw" / "bitcoin_sp500_gold_daily_prices_2017_2024.csv"
+PROCESSED_DATED_DATA = (
+    DATA_DIR / "processed" / "bitcoin_sp500_gold_normalized_log_returns_by_date.csv"
+)
+PROCESSED_PYEDM_DATA = (
+    DATA_DIR / "processed" / "bitcoin_sp500_gold_normalized_log_returns_pyedm.csv"
+)
 REFERENCE_DIR = DATA_DIR / "reference"
 FIGURES_DIR = PROJECT_ROOT / "figures"
 

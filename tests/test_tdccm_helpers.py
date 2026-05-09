@@ -30,7 +30,7 @@ def test_compute_max_lib_size_uses_embedding_tau_and_tp() -> None:
 
 def test_direction_file_naming_is_stable() -> None:
     assert direction_key("BTC", "SPX") == "BTC_to_SPX"
-    assert reference_filename("BTC", "SPX") == "norm_heatmap_data_BTC_to_SPX.csv"
+    assert reference_filename("BTC", "SPX") == "tdccm_btc_to_spx_rho_by_window_tp.csv"
 
 
 def test_run_tdccm_window_smoke() -> None:
