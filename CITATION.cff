@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the associated paper."
+title: "Bitcoin TDCCM Reproduction"
+type: software
+authors:
+  - given-names: Albi
+    family-names: Isufaj
+identifiers:
+  - type: doi
+    value: 10.1016/j.eswa.2025.127125
+preferred-citation:
+  type: article
+  title: "Applying time delay convergent cross mapping to Bitcoin time series"
+  authors:
+    - given-names: Albi
+      family-names: Isufaj
+    - given-names: Caio
+      name-particle: De Castro
+      family-names: Martins
+    - given-names: Marc
+      family-names: Cavazza
+    - given-names: Helmut
+      family-names: Prendinger
+  journal: "Expert Systems with Applications"
+  volume: "277"
+  year: 2025
+  doi: 10.1016/j.eswa.2025.127125
+  start: "127125"

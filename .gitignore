@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.env
+.venv/
+env/
+venv/
+venv_ccm/
+
+build/
+dist/
+site/
+
+.ipynb_checkpoints/
+.vscode/
+
+outputs/
+Results/
+apps/tests/Results/
+
+*.arrow
+*.log
+
+# Publisher/local scratch copies are intentionally not part of the repo.
+Applying time delay convergent cross mapping to Bitcoin time series.pdf
