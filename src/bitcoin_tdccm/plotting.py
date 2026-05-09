@@ -9,37 +9,14 @@ import matplotlib
 matplotlib.use("Agg")
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
 
 from .config import FIGURES_DIR, PAPER_FIGURE_FILTERS, PAIRS, REFERENCE_DIR, PairConfig
 from .tdccm import direction_key, reference_filename
 
 
-TP_COLORS = (
-    "red",
-    "blue",
-    "green",
-    "orange",
-    "purple",
-    "brown",
-    "pink",
-    "gray",
-    "olive",
-    "cyan",
-    "magenta",
-    "yellow",
-    "gold",
-    "navy",
-    "teal",
-    "maroon",
-    "lime",
-    "turquoise",
-    "beige",
-    "lavender",
-)
+PAPER_BLUE = "#1f77b4"
+PAPER_ORANGE = "#ff7f0e"
 
 
 def max_rho_by_window(
@@ -87,73 +64,48 @@ def make_paper_figure(
         filters[reverse_key],
     )
 
-    unique_tp = np.unique(np.concatenate((forward["Tp"].to_numpy(), reverse["Tp"].to_numpy())))
-    colors = list(TP_COLORS)
-    if len(unique_tp) > len(colors):
-        repeats = int(np.ceil(len(unique_tp) / len(colors)))
-        colors *= repeats
-    tp_to_color = {tp: colors[idx] for idx, tp in enumerate(sorted(unique_tp))}
+    forward_label = f"{pair.variable1} to {pair.variable2}"
+    reverse_label = f"{pair.variable2} to {pair.variable1}"
 
-    fig, ax = plt.subplots(figsize=(12, 6), dpi=300)
-    ax.plot(forward["Window"], forward["rho"], color="black", linestyle="-", label=forward_key)
-    ax.scatter(
+    fig, ax = plt.subplots(figsize=(10, 6), dpi=300)
+    ax.plot(
         forward["Window"],
         forward["rho"],
-        c=[tp_to_color[tp] for tp in forward["Tp"]],
-        edgecolor="k",
-        s=100,
-        zorder=3,
+        color=PAPER_BLUE,
+        linestyle="-",
         marker="o",
+        markersize=4,
+        linewidth=1,
+        label=forward_label,
     )
-    ax.plot(reverse["Window"], reverse["rho"], color="lightgray", linestyle="-", label=reverse_key)
-    ax.scatter(
+    ax.plot(
         reverse["Window"],
         reverse["rho"],
-        c=[tp_to_color[tp] for tp in reverse["Tp"]],
-        edgecolor="k",
-        s=100,
-        zorder=3,
-        marker="s",
+        color=PAPER_ORANGE,
+        linestyle="-",
+        marker="o",
+        markersize=4,
+        linewidth=1,
+        label=reverse_label,
     )
 
-    ax.axvline(x=23, color="black", linestyle="--")
-    ax.axvline(x=38, color="black", linestyle="--")
+    ax.axvline(x=23, color=PAPER_BLUE, linestyle="--", linewidth=1, label="Start of COVID-19")
+    ax.axvline(x=38, color=PAPER_ORANGE, linestyle="--", linewidth=1, label="End of COVID-19")
+    y_top = max(forward["rho"].max(), reverse["rho"].max())
+    y_text = y_top + 0.01
+    ax.text(23, y_text, "Start of COVID-19", color=PAPER_BLUE, fontsize=8)
+    ax.text(38, y_text, "End of COVID-19", color=PAPER_ORANGE, fontsize=8)
     ax.set_xlabel("Window")
     ax.set_ylabel("Highest Rho Value")
-    ax.set_title(f"Highest Rho Value per Window for {pair.variable1} and {pair.variable2}")
+    ax.set_title(
+        f"Highest Rho Value per Window for {pair.variable1} and {pair.variable2} (log returns)"
+    )
     ax.grid(True)
-
-    legend_elements = [
-        *(Patch(facecolor=tp_to_color[tp], edgecolor="k", label=f"Tp={tp}") for tp in sorted(unique_tp)),
-        Line2D([0], [0], color="black", linestyle="-", label=forward_key),
-        Line2D([0], [0], color="lightgray", linestyle="-", label=reverse_key),
-        Line2D(
-            [0],
-            [0],
-            marker="o",
-            color="w",
-            markerfacecolor="black",
-            markersize=10,
-            label=f"{forward_key} marker",
-            markeredgecolor="k",
-        ),
-        Line2D(
-            [0],
-            [0],
-            marker="s",
-            color="w",
-            markerfacecolor="black",
-            markersize=10,
-            label=f"{reverse_key} marker",
-            markeredgecolor="k",
-        ),
-        Line2D([0], [0], color="black", linestyle="--", label="COVID-19 period"),
-    ]
-    ax.legend(handles=legend_elements, loc="upper left", bbox_to_anchor=(1.02, 1), borderaxespad=0.0)
+    ax.legend(loc="upper left")
     fig.tight_layout()
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, format="pdf", bbox_inches="tight")
+    fig.savefig(output_path, format="pdf")
     plt.close(fig)
     return output_path
 
